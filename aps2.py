@@ -19,7 +19,7 @@ u = alpha
 a = 9/1.4
 b = 60/(9+5)
 
-
+checar = 0
 
 for l in tempo:
     for i in range(0,60):
@@ -48,20 +48,41 @@ for l in tempo:
     C_[1:40][60] = C_[1:40][59]
     C_[0][1:60] = C_[1][1:60]
     C_[40][1:60] = C_[39][1:60]'''
-    
-            
+
+    if  not checar:
+        if C_[j][60]!=0 :
+            print("j",j,i, l)
+            print(C_[j][0])
+            T_checar = l
+            C_checar = np.copy(C_)
+            checar = 1
+        elif C_[j][0]!=0:
+            print("j",j,i, l)
+            print("Tempo: ", l)
+            print(C_[j][0])
+            T_checar = l
+            C_checar = np.copy(C_)
+            checar = 1
+        elif C_[0][i]!=0:
+            print("j",j,i, l)
+            print(C_[j][0])
+            T_checar = l
+            C_checar = np.copy(C_)
+            checar = 1
+        elif C_[40][i]!=0:
+            print("j",j,i, l)
+            print(C_[j][0])
+            T_checar = l
+            C_checar = np.copy(C_)
+            checar = 1
+
     C = np.copy(C_)
-
-C_[0][:] = C_[1][:]
-C_[40][:] = C_[39][:]
-C_[0:60][0] = C_[0:60][1]
-C_[0:60][40] = C_[0:60][39]
-
 #print(np.shape(C))
 #extent=(0,40,0,60)
 
-plt.imshow(C, vmin = 0, vmax = 0.2, extent=(0,60,0,40))
+plt.imshow(C_checar, vmin = 0, vmax = 1, extent=(0,60,0,40))
 plt.xlim(0,59)
 plt.ylim(0,40)
 plt.colorbar()
 plt.show()
+    
