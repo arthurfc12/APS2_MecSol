@@ -29,7 +29,7 @@ for l in tempo:
             else:
                 qc = 0
 
-            v = alpha*math.sin((math.pi / 5) * j)
+            v = alpha*math.sin((math.pi / 5) * j * delta_y)
             
             termo1direita = C[j][i]
             termo2 = u*(C[j][i+1] - C[j][i-1]) / (2*delta_x)
@@ -41,14 +41,7 @@ for l in tempo:
             if C_[j][i] < 0:
                 C_[j][i] = 0
 
-            if j == 0:
-                C_[0][i] = C_[1][i]
-            elif j == 40:
-                C_[40][i] = C_[39][i]
-            elif i == 0:
-                C_[j][0] = C_[j][1]
-            elif i == 60:
-                C_[j][60] = C_[j][59]
+            
 
     '''#Condições de contorno
     C_[1:40][0] = C_[1:40][1]
@@ -58,10 +51,16 @@ for l in tempo:
     
             
     C = np.copy(C_)
+
+C_[0][:] = C_[1][:]
+C_[40][:] = C_[39][:]
+C_[0:60][0] = C_[0:60][1]
+C_[0:60][40] = C_[0:60][39]
+
 #print(np.shape(C))
 #extent=(0,40,0,60)
 
-plt.imshow(C, vmin = 0, vmax = 1, extent=(0,60,0,40))
+plt.imshow(C, vmin = 0, vmax = 0.2, extent=(0,60,0,40))
 plt.xlim(0,59)
 plt.ylim(0,40)
 plt.colorbar()
