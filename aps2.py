@@ -13,7 +13,7 @@ delta_x = 0.5
 delta_y = 0.5
 
 #constantes
-k = 1.2
+k = 1
 alpha = 1
 u = alpha
 a = 9/1.4
