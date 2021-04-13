@@ -13,7 +13,7 @@ delta_x = 0.5
 delta_y = 0.5
 
 #constantes
-k = 1
+k = 1.2
 alpha = 1
 u = alpha
 a = 9/1.4
@@ -41,7 +41,6 @@ for l in tempo:
             if C_[j][i] < 0:
                 C_[j][i] = 0
 
-            #Condições de contorno
             if j == 0:
                 C_[0][i] = C_[1][i]
             elif j == 40:
@@ -50,10 +49,20 @@ for l in tempo:
                 C_[j][0] = C_[j][1]
             elif i == 60:
                 C_[j][60] = C_[j][59]
+
+    '''#Condições de contorno
+    C_[1:40][0] = C_[1:40][1]
+    C_[1:40][60] = C_[1:40][59]
+    C_[0][1:60] = C_[1][1:60]
+    C_[40][1:60] = C_[39][1:60]'''
+    
             
     C = np.copy(C_)
+#print(np.shape(C))
+#extent=(0,40,0,60)
 
-
-plt.imshow(C, vmin = 0, vmax = 1, extent(0,,0,))
+plt.imshow(C, vmin = 0, vmax = 1, extent=(0,60,0,40))
+plt.xlim(0,59)
+plt.ylim(0,40)
 plt.colorbar()
 plt.show()
